@@ -8,14 +8,12 @@ pipeline {
                 echo "hello from stage one, step two"
                 }
             }
-        }
 
         stage ('stage one'){
             steps{
                 echo "hello from stage two, step one"
                 echo "hello from stage two, step two"
-                }
+            }
         }
     }
-
 }
