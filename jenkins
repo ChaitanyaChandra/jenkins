@@ -9,7 +9,7 @@ pipeline {
                 }
             }
 
-        stage ('stage one'){
+        stage ('stage two'){
             steps{
                 echo "hello from stage two, step one"
                 echo "hello from stage two, step two"
