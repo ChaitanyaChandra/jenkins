@@ -1,0 +1,60 @@
+pipeline {
+  agent {
+    label 'WORKSTATION'
+  }
+
+  options {
+    ansiColor('xterm')
+  }
+
+  parameters {
+    choice(name: 'ENVIRONMENT', choices: ['', 'dev', 'prod'], description: 'Pick Environment')
+    string(name: 'COMPONENT', defaultValue: '', description: 'Which Component?')
+    string(name: 'APP_VERSION', defaultValue: '', description: 'Application Version to Deploy?')
+    booleanParam(name: 'INSTANCE_REFRESH', defaultValue: true, description: 'Instance Refresh Needed?')
+  }
+
+  stages {
+
+    stage('Get Git Repo') {
+      steps {
+        dir('code') {
+          git branch: 'main', url: "https://github.com/raghudevopsb61/${COMPONENT}.git"
+        }
+      }
+    }
+
+    stage('Terraform Apply') {
+      steps {
+        dir('code') {
+          sh '''
+            cd terraform-immutable
+            terraform init -backend-config=env/${ENVIRONMENT}-backend.tfvars
+            terraform apply -auto-approve -var-file=env/${ENVIRONMENT}.tfvars -var APP_VERSION=${APP_VERSION}
+          '''
+        }
+      }
+    }
+
+    stage('Instance Refresh'){
+      when {
+        expression { return params.INSTANCE_REFRESH }
+      }
+      steps {
+          sh '''
+            bash instance-refresh.sh ${COMPONENT}-${ENVIRONMENT}
+            #aws autoscaling start-instance-refresh --auto-scaling-group-name ${COMPONENT}-${ENVIRONMENT}
+          '''
+      }
+    }
+
+
+  }
+
+  post {
+    always {
+      cleanWs()
+    }
+  }
+
+}
