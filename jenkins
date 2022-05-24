@@ -4,24 +4,16 @@ pipeline {
     stages{
         stage ('stage one'){
             steps{
-                step{
-                    echo "hello from stage one, step one"
-                }
-                step{
-                    echo "hello from stage one, step two"
+                echo "hello from stage one, step one"
+                echo "hello from stage one, step two"
                 }
             }
         }
 
         stage ('stage one'){
             steps{
-                step{
-                    echo "hello from stage two, step one"
-                }
-                step{
-                    echo "hello from stage two, step two"
-                }
-            }
+                echo "hello from stage two, step one"
+                echo "hello from stage two, step two"
         }
     }
 
