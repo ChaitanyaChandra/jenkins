@@ -11,7 +11,7 @@ pipeline {
 
         stage ('stage two'){
             steps{
-                sh 'ansible -m ping all -i roboshop.ini'
+                sh 'ansible -m ping all -i roboshop.inv'
             }
         }
     }
