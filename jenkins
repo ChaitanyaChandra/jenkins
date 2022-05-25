@@ -3,7 +3,7 @@ pipeline {
 
     stages
     {
-        stage ('stage one')
+        stage ('git clone')
         {
             steps
             {
@@ -13,7 +13,7 @@ pipeline {
             }
          }
 
-        stage ('stage two')
+        stage ('ansible ping')
         {
             steps
             {
