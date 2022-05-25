@@ -1,17 +1,23 @@
 pipeline {
     agent { label 'work_station'}
 
-    stages{
-        stage ('stage one'){
-            steps{
-                sh 'git clone https://github.com/ChaitanyaChandra/ansible-lab.git'
-                sh 'cd ansible-lab'
-                }
+    stages
+    {
+        stage ('stage one')
+        {
+            steps
+            {
+            git branch: 'main', url: 'https://github.com/ChaitanyaChandra/ansible-lab.git'
+            dir('ansible-lab') {
             }
+            }
+         }
 
-        stage ('stage two'){
-            steps{
-                sh 'ansible -m ping all -i roboshop.inv'
+        stage ('stage two')
+        {
+            steps
+            {
+            sh 'ansible -m ping all -i roboshop.inv'
             }
         }
     }
