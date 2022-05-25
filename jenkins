@@ -4,15 +4,14 @@ pipeline {
     stages{
         stage ('stage one'){
             steps{
-                echo "hello from stage one, step one"
-                echo "hello from stage one, step two"
+                sh: 'git clone https://github.com/ChaitanyaChandra/ansible-lab.git'
+                sh: 'cd ansible-lab'
                 }
             }
 
         stage ('stage two'){
             steps{
-                echo "hello from stage two, step one"
-                echo "hello from stage two, step two"
+                sh: 'ansible -m ping all -i roboshop.ini'
             }
         }
     }

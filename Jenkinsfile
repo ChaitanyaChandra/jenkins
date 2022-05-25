@@ -1,12 +1,22 @@
-//node {
-//  stage('One') {
-//    sh 'echo Hello'
-//  }
-//  stage('Two') {
-//    sh 'echo Hello'
-//  }
-//}
+// pipeline {
+//     agent { label 'work_station'}
 //
+//     stages{
+//         stage ('stage one'){
+//             steps{
+//                 echo "hello from stage one, step one"
+//                 echo "hello from stage one, step two"
+//                 }
+//             }
+//
+//         stage ('stage two'){
+//             steps{
+//                 echo "hello from stage two, step one"
+//                 echo "hello from stage two, step two"
+//             }
+//         }
+//     }
+// }
 
 // Agent example
 
