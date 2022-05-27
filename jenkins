@@ -26,7 +26,7 @@ pipeline {
             steps
             {
             sh 'ansible -m ping all -i roboshop.inv'
-            sh 'echo ${NEWRELIC_API_KEY} | base64'
+            sh 'echo ${KEY} | base64'
             }
         }
     }
