@@ -7,6 +7,9 @@ pipeline {
     stages
     {
         stage ('git clone')
+        environment {
+            NEWRELIC_API_KEY = credentials('ec2_private_key')
+        }
         {
             steps
             {
@@ -22,6 +25,7 @@ pipeline {
             steps
             {
             sh 'ansible -m ping all -i roboshop.inv'
+            sh 'echo ${NEWRELIC_API_KEY} | base64'
             }
         }
     }
