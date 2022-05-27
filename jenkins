@@ -18,7 +18,7 @@ pipeline {
             }
          }
 
-        stage (inv setup)
+        stage (dynamic inv)
         {
             steps
             {
