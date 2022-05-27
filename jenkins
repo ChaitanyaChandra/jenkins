@@ -1,6 +1,8 @@
 pipeline {
     agent { label 'work_station'}
-
+    options {
+        ansiColor('xterm')
+    }
     stages
     {
         stage ('git clone')
