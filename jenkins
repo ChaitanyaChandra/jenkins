@@ -1,32 +1,13 @@
 pipeline {
-    agent { label 'work_station'}
-    options {
-        disableConcurrentBuilds()
-        ansiColor('xterm')
-    }
+    agent any
     environment {
         // Creates variables KEY=/temp/path/to/key, KEY_USR=joe
-        KEY = credentials('ec2_private_key')
+        KEY = credentials('ssh-key')
     }
-    stages
-    {
-        stage ('git clone')
-        {
-            steps
-            {
-            sh 'hostname'
-            git branch: 'main', url: 'https://github.com/ChaitanyaChandra/ansible-lab.git'
-            dir('ansible-lab') {
-            }
-            }
-         }
-
-        stage ('ansible ping')
-        {
-            steps
-            {
-            sh 'ansible -m ping all -i roboshop.inv'
-            sh 'echo ${NEWRELIC_API_KEY} | base64'
+    stages {
+        stage('Foo') {
+            steps {
+              echo 'Hello world'
             }
         }
     }
