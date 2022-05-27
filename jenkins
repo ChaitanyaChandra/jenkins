@@ -4,12 +4,12 @@ pipeline {
         disableConcurrentBuilds()
         ansiColor('xterm')
     }
+    environment {
+        NEWRELIC_API_KEY = credentials('ec2_private_key')
+    }
     stages
     {
         stage ('git clone')
-        environment {
-            NEWRELIC_API_KEY = credentials('ec2_private_key')
-        }
         {
             steps
             {
