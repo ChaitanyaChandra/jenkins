@@ -1,6 +1,7 @@
 pipeline {
     agent { label 'work_station'}
     options {
+        disableConcurrentBuilds()
         ansiColor('xterm')
     }
     stages
