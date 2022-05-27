@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label 'work_station' }
     environment {
         // Creates variables KEY=/temp/path/to/key, KEY_USR=joe
         KEY = credentials('ssh-key')
