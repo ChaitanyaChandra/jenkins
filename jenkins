@@ -5,7 +5,8 @@ pipeline {
         ansiColor('xterm')
     }
     environment {
-        NEWRELIC_API_KEY = credentials('ec2_private_key')
+        // Creates variables KEY=/temp/path/to/key, KEY_USR=joe
+        KEY = credentials('ec2_private_key')
     }
     stages
     {
