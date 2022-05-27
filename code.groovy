@@ -1,15 +1,20 @@
-pipelineJob('job-dsl-plugin') {
-  definition {
-    cpsScm {
-      scm {
-        git {
-          remote {
-            url('https://github.com/ChaitanyaChandra/jenkins.git')
+pipelineJob('ansible') {
+  configure { flowdefinition ->
+    flowdefinition << delegate.'definition'(class:'org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition',plugin:'workflow-cps') {
+      'scm'(class:'hudson.plugins.git.GitSCM',plugin:'git') {
+        'userRemoteConfigs' {
+          'hudson.plugins.git.UserRemoteConfig' {
+            'url'('https://github.com/ChaitanyaChandra/jenkins.git')
           }
-          branch('*/main')
+        }
+        'branches' {
+          'hudson.plugins.git.BranchSpec' {
+            'name'('*/main')
+          }
         }
       }
-      lightweight()
+      'scriptPath'('jenkins')
+      'lightweight'(true)
     }
   }
 }
