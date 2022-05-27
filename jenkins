@@ -4,10 +4,7 @@ pipeline {
         disableConcurrentBuilds()
         ansiColor('xterm')
     }
-    environment {
-        // Creates variables KEY=/temp/path/to/key, KEY_USR=joe
-        KEY = credentials('ec2_private_key')
-    }
+    triggers { pollSCM('* * * * *') }
     stages
     {
         stage ('git clone')
@@ -21,12 +18,20 @@ pipeline {
             }
          }
 
+        stage (inv, key and config files setup)
+        {
+            steps
+            {
+            sh: 'python3 -m install boto3'
+            sh: 'python3 inv.py'
+            }
+        }
+
         stage ('ansible ping')
         {
             steps
             {
-            sh 'ansible -m ping all -i roboshop.inv'
-            sh 'echo ${KEY_USR} | base64'
+            sh 'ansible -m ping all -i roboshop.inv''
             }
         }
     }
