@@ -22,7 +22,7 @@ pipeline {
         {
             steps
             {
-            sh 'python3 -m pip install boto3'
+            sh 'sudo python3 -m pip install boto3'
             sh 'sudo python3 inv.py'
             }
         }
