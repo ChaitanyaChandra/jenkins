@@ -18,7 +18,7 @@ pipeline {
             }
          }
 
-        stage (inv, key and config files setup)
+        stage (inv setup)
         {
             steps
             {
