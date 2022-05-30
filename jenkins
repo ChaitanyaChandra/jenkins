@@ -26,6 +26,9 @@ pipeline {
             sh 'python3 inv.py'
             }
         }
+
+        stage ('parallel stage')
+        {
         parallel {
             stage ('ansible version')
             {
@@ -41,6 +44,7 @@ pipeline {
                 sh 'ansible -m ping all -i roboshop.inv'
                 }
             }
+        }
         }
     }
 }
