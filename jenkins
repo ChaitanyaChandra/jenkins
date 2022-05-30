@@ -26,12 +26,20 @@ pipeline {
             sh 'python3 inv.py'
             }
         }
-
-        stage ('ansible ping')
-        {
-            steps
+        parallel {
+            stage ('ansible version')
             {
-            sh 'ansible -m ping all -i roboshop.inv'
+            steps
+                {
+                sh 'ansible --version'
+                }
+            }
+            stage ('ansible ping')
+            {
+            steps
+                {
+                sh 'ansible -m ping all -i roboshop.inv'
+                }
             }
         }
     }
