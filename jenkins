@@ -29,22 +29,22 @@ pipeline {
 
         stage ('parallel stage')
         {
-        parallel {
-            stage ('ansible version')
-            {
-            steps
+            parallel {
+                stage ('ansible version')
                 {
-                sh 'ansible --version'
+                steps
+                    {
+                    sh 'ansible --version'
+                    }
+                }
+                stage ('ansible ping')
+                {
+                steps
+                    {
+                    sh 'ansible -m ping all -i roboshop.inv'
+                    }
                 }
             }
-            stage ('ansible ping')
-            {
-            steps
-                {
-                sh 'ansible -m ping all -i roboshop.inv'
-                }
-            }
-        }
         }
     }
 }
