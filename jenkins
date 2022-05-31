@@ -4,7 +4,7 @@ pipeline {
         disableConcurrentBuilds()
         ansiColor('xterm')
     }
-    triggers { pollSCM('* * * * *') }
+    // triggers { pollSCM('* * * * *') }
     environment {
         SSH = credentials('INSTANCE_CREDS')
     }
