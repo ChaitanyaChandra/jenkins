@@ -1,47 +1,38 @@
+package vars
+
 def call() {
   pipeline {
-    agent {
-      label "${BUILD_LABEL}"
-    }
-
-    //environment {}
-
-    options {
-      ansiColor('xterm')
-    }
-
-    parameters {
-      choice(name: 'ENVIRONMENT', choices: ['', 'dev', 'prod'], description: 'Pick Environment')
-      choice(name: 'ACTION', choices: ['', 'apply', 'destroy'], description: 'Pick Terraform Action')
-    }
+//    triggers {
+//      pollSCM('H/2 * * * *')
+//    }
 
     stages {
 
-      stage('Label Builds') {
+      stage('Compile the Code') {
+        steps {
+          sh 'mvn compile'
+        }
+      }
+
+      stage('Check the Code Quality') {
         steps {
           script {
-            addShortText background: 'white', borderColor: 'white', color: 'red', link: '', text: "${ENVIRONMENT}"
-            addShortText background: 'white', borderColor: 'white', color: 'red', link: '', text: "${ACTION}"
+            common.sonarQube()
           }
         }
       }
 
-      stage('Apply Terraform Action') {
+      stage('Lint Checks') {
         steps {
-          sh '''
-            terraform init -backend-config=env/${ENVIRONMENT}-backend.tfvars
-            terraform ${ACTION} -auto-approve -var-file=env/${ENVIRONMENT}.tfvars
-          '''
+          sh 'echo Test Cases'
         }
       }
 
-    }
-
-    post {
-      always {
-        cleanWs()
+      stage('Test Cases') {
+        steps {
+          sh 'echo Test Cases'
+        }
       }
     }
-
   }
 }
