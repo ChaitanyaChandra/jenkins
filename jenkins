@@ -15,7 +15,7 @@ pipeline {
             steps
             {
             sh 'hostname'
-            git branch: 'main', url: 'https://github.com/ChaitanyaChandra/ansible-lab.git'
+            git branch: 'ansible-nodejs', url: 'https://github.com/ChaitanyaChandra/ansible-lab.git'
             dir('ansible-lab') {
             }
             }
