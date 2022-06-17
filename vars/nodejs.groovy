@@ -24,7 +24,7 @@ def call() {
                                 steps
                                         {
                                             script{
-                                                creds.my_creds('SONAR')
+                                                creds('SONAR')
                                             }
                                         }
                             }
