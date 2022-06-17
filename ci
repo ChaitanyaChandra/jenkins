@@ -1,4 +1,4 @@
-@Library('nodejs') _
+@Library('spec') _
 
 node.info 'Starting'
 node.warning 'Nothing to do!'
