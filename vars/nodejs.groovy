@@ -23,7 +23,9 @@ def call() {
                             {
                                 steps
                                         {
-                                            sh 'echo check code quality'
+                                            script{
+                                                common.SonarQube()
+                                            }
                                         }
                             }
 
