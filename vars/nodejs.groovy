@@ -5,7 +5,7 @@ def call() {
             disableConcurrentBuilds()
             ansiColor('xterm')
         }
-        triggers { pollSCM('* * * * *') }
+        //  triggers { pollSCM('* * * * *') }
         stages
                 {
                     stage ('compile the code')
