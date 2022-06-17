@@ -1,3 +1,3 @@
 def SonarQube() {
-    printin "hello from sonarQube"
+    println "hello from sonarQube"
 }
