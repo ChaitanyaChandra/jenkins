@@ -11,7 +11,7 @@ pipeline {
         {
             steps
             {
-            sh 'compile code'
+            sh 'echo compile code'
             git branch: 'master', url: 'https://github.com/ChaitanyaChandra/spec.git'
             dir('spec') {
             }
@@ -22,7 +22,7 @@ pipeline {
         {
             steps
             {
-            sh 'check code quality'
+            sh 'echo check code quality'
             }
         }
 
@@ -30,7 +30,7 @@ pipeline {
         {
             steps
             {
-            sh 'Test cases'
+            sh 'echo Test cases'
             }
         }
 
