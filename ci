@@ -1,3 +1,2 @@
 @Library('spec') _
-
-node.call()
+nodejs()
