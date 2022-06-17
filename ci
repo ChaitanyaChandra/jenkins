@@ -1,0 +1,38 @@
+pipeline {
+    agent { label 'work_station'}
+    options {
+        disableConcurrentBuilds()
+        ansiColor('xterm')
+    }
+    triggers { pollSCM('* * * * *') }
+    stages
+    {
+        stage ('compile the code')
+        {
+            steps
+            {
+            sh 'compile code'
+            git branch: 'master', url: 'https://github.com/ChaitanyaChandra/spec.git'
+            dir('spec') {
+            }
+            }
+         }
+
+        stage ('check the code quality')
+        {
+            steps
+            {
+            sh 'check code quality'
+            }
+        }
+
+        stage ('Test cases')
+        {
+            steps
+            {
+            sh 'Test cases'
+            }
+        }
+
+    }
+}
