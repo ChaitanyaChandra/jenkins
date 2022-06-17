@@ -9,7 +9,7 @@ def jenkinsCredentials = com.cloudbees.plugins.credentials.CredentialsProvider.l
         null
 );
 
-def my_creds(ID){
+def call(ID){
     for (creds in jenkinsCredentials) {
         if(creds.id == $ID){
           //  println(creds.username)
