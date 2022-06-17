@@ -6,6 +6,9 @@ def call() {
             ansiColor('xterm')
         }
         //  triggers { pollSCM('* * * * *') }
+        environment {
+            SONAR_CREDS = credentials('SONAR')
+        }
         stages
                 {
                     stage ('compile the code')
@@ -24,7 +27,7 @@ def call() {
                                 steps
                                         {
                                             script{
-                                                common.SonarQube()
+                                                common.SonarQube($SONAR_CREDS_USR, $SONAR_CREDS_PSW)
                                             }
                                         }
                             }
