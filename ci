@@ -1,4 +1,8 @@
 @Library('nodejs') _
+
+node.info 'Starting'
+node.warning 'Nothing to do!'
+
 pipeline {
     agent { label 'work_station'}
     options {
