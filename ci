@@ -1,3 +1,4 @@
+@Library('nodejs') _
 pipeline {
     agent { label 'work_station'}
     options {
