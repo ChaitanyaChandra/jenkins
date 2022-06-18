@@ -5,6 +5,9 @@ def call() {
             disableConcurrentBuilds()
             ansiColor('xterm')
         }
+        environment {
+            SONAR_CREDS = credentials('SONAR')
+        }
         //  triggers { pollSCM('* * * * *') }
         stages
                 {
