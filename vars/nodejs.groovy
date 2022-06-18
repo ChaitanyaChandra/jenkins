@@ -24,7 +24,7 @@ def call() {
                                 steps
                                         {
                                             script{
-                                                creds('SONAR')
+                                                common.SonarQube(SONAR_CREDS_USR, SONAR_CREDS_PSW)
                                             }
                                         }
                             }
