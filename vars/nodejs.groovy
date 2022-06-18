@@ -27,7 +27,7 @@ def call() {
                                 steps
                                         {
                                             script{
-                                                common.SonarQube(SONAR_CREDS_USR, SONAR_CREDS_PSW)
+                                                common.SonarQube(SONAR_CREDS_USR, SONAR_CREDS_PSW, "sonar-dev.chaitu.org",  "nodejs")
                                             }
                                         }
                             }
