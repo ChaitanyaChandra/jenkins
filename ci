@@ -1,2 +1,0 @@
-@Library('spec') _
-nodejs()
