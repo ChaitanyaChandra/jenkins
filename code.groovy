@@ -35,10 +35,10 @@ pipelineJob('CI-Pipelines/nodejs') {
         }
         'branches' {
           'hudson.plugins.git.BranchSpec' {
-            'name'('/feature')
+            'name'('*/feature')
           }
           'hudson.plugins.git.BranchSpec' {
-            'name'('/tags/')
+            'name'('*/tags/*')
           }
         }
       }
