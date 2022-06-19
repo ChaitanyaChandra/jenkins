@@ -7,7 +7,7 @@ def prepare_artifacts(){
     println "publishing artifacts"
     sh '''
       npm install 
-      zip -r nodejs-${gitTag}.zip node_modules index.js
+      zip -r nodejs-${gitTag}.zip node_modules index.js views public
     '''
 }
 
