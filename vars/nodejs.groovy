@@ -8,7 +8,9 @@ def call() {
         environment {
             SONAR_CREDS = credentials('SONAR')
         }
-        triggers { pollSCM('* * * * *') }
+        triggers {
+            pollSCM('H/2 * * * *')
+        }
         stages
                 {
                     stage ('compile the code')
@@ -16,7 +18,7 @@ def call() {
                                 steps
                                         {
                                             sh 'echo compile code'
-                                            git branch: 'feature', url: 'https://github.com/ChaitanyaChandra/spec.git'
+                                            git branch: 'feature', url: 'https://github.com/ChaitanyaChandra/spec.git', Refspec: '+refs/tags/*:refs/remotes/origin/tags/*', Branch 'specifier **/tags/**'
                                             dir('spec') {
                                             }
                                         }
