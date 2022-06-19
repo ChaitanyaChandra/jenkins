@@ -4,9 +4,5 @@ def SonarQube(USER, PASSWORD, URL, PROJECT) {
 }
 
 def publish_artifacts(){
-    if (env.GIT_BRANCH=="*tag*"){
-        println "run with tag"
-    }
-    else
-        println "run with branch"
+    println "publishing artifacts"
 }
