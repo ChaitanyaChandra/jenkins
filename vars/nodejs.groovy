@@ -51,18 +51,6 @@ def call() {
                                             sh 'echo Test cases'
                                         }
                             }
-                    stage ('prepare artifacts')
-                            {
-                                when {
-                                    expression { sh([returnStdout: true, script: 'echo ${GIT_BRANCH} | grep tags || true' ]) }
-                                }
-                                steps
-                                        {
-                                            script{
-                                                common.prepare_artifacts()
-                                            }
-                                        }
-                            }
                     stage ('Publish artifacts')
                             {
                                 when {
@@ -72,6 +60,7 @@ def call() {
                                         {
                                             sh 'env'
                                             script{
+                                                common.prepare_artifacts()
                                                 common.publish_artifacts()
                                             }
                                         }
