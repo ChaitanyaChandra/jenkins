@@ -16,7 +16,7 @@ def call() {
                                 steps
                                         {
                                             sh 'echo compile code'
-                                            git branch: 'master', url: 'https://github.com/ChaitanyaChandra/spec.git'
+                                            git branch: 'feature', url: 'https://github.com/ChaitanyaChandra/spec.git'
                                             dir('spec') {
                                             }
                                         }
