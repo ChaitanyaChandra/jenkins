@@ -8,9 +8,9 @@ def call() {
         environment {
             SONAR_CREDS = credentials('SONAR')
         }
-        triggers {
-        //    pollSCM('H/2 * * * *')
-        }
+//        triggers {
+//            pollSCM('H/2 * * * *')
+//        }
         stages
                 {
                     stage('Label Builds')
