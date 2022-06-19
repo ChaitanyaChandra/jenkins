@@ -47,6 +47,7 @@ def call() {
                             {
                                 steps
                                         {
+                                            sh 'env'
                                             script{
                                                 common.publish_artifacts()
                                             }
