@@ -12,7 +12,5 @@ def prepare_artifacts(){
 }
 
 def publish_artifacts(USER, PASSWORD, URL, PROJECT){
-    sh '''
-    curl -v -u ${USER}:${PASSWORD} --upload-file ${PROJECT}-${gitTag}.zip http://${URL}:8081/repository/${PROJECT}/${PROJECT}-${gitTag}.zip
-    '''
+    sh "curl -v -u ${USER}:${PASSWORD} --upload-file ${PROJECT}-${gitTag}.zip http://${URL}:8081/repository/${PROJECT}/${PROJECT}-${gitTag}.zip"
 }
