@@ -4,25 +4,17 @@ def call() {
         options {
             disableConcurrentBuilds()
             ansiColor('xterm')
+            addShortText background: 'white', borderColor: 'white', color: 'red', link: '', text: "${gitTag}"
         }
         environment {
             SONAR_CREDS = credentials('SONAR')
+
         }
 //        triggers {
 //            pollSCM('H/2 * * * *')
 //        }
         stages
                 {
-                    stage('Label Builds')
-                            {
-                                steps {
-                                    script {
-                                        env.gitTag = GIT_BRANCH.split('/').last()
-                                        addShortText background: 'white', borderColor: 'white', color: 'red', link: '', text: "${gitTag}"
-                                    }
-                                }
-                            }
-
                     stage ('compile the code')
                             {
                                 steps
