@@ -61,15 +61,15 @@ def call() {
                                             sh 'env'
                                             script{
                                                 common.prepare_artifacts()
-                                                common.publish_artifacts(SONAR_CREDS_USR, SONAR_CREDS_PSW, "nexus-dev.chaitu.org",  "nodejs")
+                                                common.publish_artifacts(SONAR_CREDS_USR, SONAR_CREDS_PSW, "nexus-dev.chaitu.org", "nodejs")
                                             }
                                         }
                             }
                 }
-        post {
-            always {
-                cleanWs()
-            }
-        }
+//        post {
+//            always {
+//                cleanWs()
+//            }
+//        }
     }
 }
