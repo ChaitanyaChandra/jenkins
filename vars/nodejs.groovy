@@ -8,7 +8,7 @@ def call() {
         environment {
             SONAR_CREDS = credentials('SONAR')
         }
-        triggers { pollSCM('H/1 * * * *') }
+        triggers { pollSCM('* * * * *') }
         stages
                 {
                     stage ('compile the code')
