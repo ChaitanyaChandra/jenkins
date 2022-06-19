@@ -19,7 +19,7 @@ def call() {
                                         {
                                             sh 'echo compile code'
                                             git branch: 'feature', url: 'https://github.com/ChaitanyaChandra/spec.git'
-//                                            Refspec: '+refs/tags/*:refs/remotes/origin/tags/*'
+//                                            Refspec: '+refs/tags/*':'refs/remotes/origin/tags/*'
 //                                            Branch: 'specifier **/tags/**'
                                             dir('spec') {
                                             }
