@@ -29,8 +29,6 @@ def call() {
                                         {
                                             sh 'echo compile code'
                                             git branch: 'feature', url: 'https://github.com/ChaitanyaChandra/spec.git'
-//                                            Refspec: '+refs/tags/*:refs/remotes/origin/tags/*'
-//                                            Branch: 'specifier **/tags/**'
                                             dir('spec') {
                                             }
                                         }
@@ -51,6 +49,18 @@ def call() {
                                 steps
                                         {
                                             sh 'echo Test cases'
+                                        }
+                            }
+                    stage ('prepare artifacts')
+                            {
+                                when {
+                                    expression { sh([returnStdout: true, script: 'echo ${GIT_BRANCH} | grep tags || true' ]) }
+                                }
+                                steps
+                                        {
+                                            script{
+                                                common.prepare_artifacts()
+                                            }
                                         }
                             }
                     stage ('Publish artifacts')
