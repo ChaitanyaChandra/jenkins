@@ -39,7 +39,13 @@ def call() {
                                             sh 'echo Test cases'
                                         }
                             }
-
+                    stage ('Publish artifacts')
+                            {
+                                steps
+                                        {
+                                            sh 'echo publish artifacts'
+                                        }
+                            }
                 }
         post {
             always {
