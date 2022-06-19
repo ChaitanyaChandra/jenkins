@@ -50,5 +50,12 @@ pipeline {
                 }
             }
         }
+        stage ('nodejs application setup')
+        {
+            steps
+            {
+            sh 'ansible-playbook main.yaml -t nodejs'
+            }
+        }
     }
 }
