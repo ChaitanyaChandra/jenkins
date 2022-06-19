@@ -9,7 +9,7 @@ def call() {
             SONAR_CREDS = credentials('SONAR')
         }
         triggers {
-            pollSCM('H/2 * * * *')
+        //    pollSCM('H/2 * * * *')
         }
         stages
                 {
