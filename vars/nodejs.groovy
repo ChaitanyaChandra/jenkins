@@ -45,6 +45,9 @@ def call() {
                             }
                     stage ('Publish artifacts')
                             {
+                                when {
+                                    expression { sh([returnStdout: true, script: 'echo ${GIT_BRANCH} | grep tags || true' ]) }
+                                }
                                 steps
                                         {
                                             sh 'env'
