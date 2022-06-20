@@ -71,7 +71,7 @@ def call() {
                 cleanWs()
             }
             success {
-                build job: 'ansible', parameters: [[$class: 'StringParameterValue', name: 'VERSION_NUMBER', value: '${gitTag}']]
+                build job: 'ansible', parameters: [[$class: 'StringParameterValue', name: 'VERSION_NUMBER', value: "${gitTag}"]]
             }
         }
     }
