@@ -45,5 +45,6 @@ pipelineJob('CI-Pipelines/nodejs') {
       'scriptPath'('Jenkinsfile')
       'lightweight'(true)
     }
+
   }
 }
