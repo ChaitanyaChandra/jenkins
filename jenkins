@@ -54,7 +54,7 @@ pipeline {
         {
             steps
             {
-            sh 'env'
+            sh '${params.gitTag}'
             sh 'ansible-playbook main.yaml -t nodejs'
             }
         }
