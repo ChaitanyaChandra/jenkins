@@ -54,7 +54,7 @@ pipeline {
         {
             steps
             {
-            sh 'echo ${env.VERSION_NUMBER}'
+            sh 'echo ${env}'
             sh 'ansible-playbook main.yaml -t nodejs'
             }
         }
