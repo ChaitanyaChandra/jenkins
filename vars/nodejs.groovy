@@ -6,7 +6,7 @@ def call() {
             ansiColor('xterm')
         }
         environment {
-            SONAR_CREDS = credentials('SONAR')
+            CREDS = credentials('INSTANCE_CREDS')
         }
 //        triggers {
 //            pollSCM('H/2 * * * *')
@@ -39,7 +39,7 @@ def call() {
                                 steps
                                         {
                                             script{
-                                                common.SonarQube(SONAR_CREDS_USR, SONAR_CREDS_PSW, "sonar-dev.chaitu.org",  "nodejs")
+                                                common.SonarQube(CREDS_USR, CREDS_PSW, "sonar-dev.chaitu.org",  "nodejs")
                                             }
                                         }
                             }
@@ -61,7 +61,7 @@ def call() {
                                             sh 'env'
                                             script{
                                                 common.prepare_artifacts()
-                                                common.publish_artifacts(SONAR_CREDS_USR, SONAR_CREDS_PSW, "nexus-dev.chaitu.org", "nodejs")
+                                                common.publish_artifacts(CREDS_USR, CREDS_PSW, "nexus-dev.chaitu.org", "nodejs")
                                             }
                                         }
                             }
