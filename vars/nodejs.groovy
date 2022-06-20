@@ -72,7 +72,7 @@ def call() {
             }
             success {
                 script{
-                    if (expression { sh([returnStdout: true, script: 'echo ${GIT_BRANCH} | grep tags || true' ]) }){
+                    if (gitTag != "feature"){
                         build job: 'ansible', parameters: [string(name: 'VERSION', value: "${gitTag}")]
                     }
                 }
