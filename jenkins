@@ -55,7 +55,7 @@ pipeline {
         {
             steps
             {
-            sh '${params.VERSION}'
+            sh "${params.VERSION}"
             sh 'ansible-playbook main.yaml -t nodejs'
             }
         }
