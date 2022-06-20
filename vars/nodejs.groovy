@@ -71,7 +71,11 @@ def call() {
                 cleanWs()
             }
             success {
-                build job: 'ansible', parameters: [[$class: 'StringParameterValue', name: 'VERSION_NUMBER', value: "${gitTag}"]]
+                script{
+                    if (expression { sh([returnStdout: true, script: 'echo ${GIT_BRANCH} | grep tags || true' ]) }){
+                        build job: 'ansible', parameters: [[$class: 'StringParameterValue', name: 'VERSION_NUMBER', value: "${gitTag}"]]
+                    }
+                }
             }
         }
     }
