@@ -65,9 +65,6 @@ pipelineJob('mutable/terraform') {
         }
         'branches' {
           'hudson.plugins.git.BranchSpec' {
-            'name'('*/tags/*')
-          }
-          'hudson.plugins.git.BranchSpec' {
             'name'('*/terraform-ansible-nodejs')
           }
         }
