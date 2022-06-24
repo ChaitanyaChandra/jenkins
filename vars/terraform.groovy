@@ -28,7 +28,7 @@ def call() {
                             {
                                 steps
                                         {
-                                            git branch: 'terraform-ansible-nodejs', url: 'https://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@github.com/ChaitanyaChandra/terraform.git'
+                                            git branch: 'terraform-ansible-nodejs', url: 'https://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@github.com/ChaitanyaChandra/terraform.git'
                                             dir('Terraform/ec2-spot') {
                                             }
                                             sh "terraform init ---backend-config=./env/${ENV}.tfvars"
