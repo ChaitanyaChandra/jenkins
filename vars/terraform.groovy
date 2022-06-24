@@ -9,8 +9,8 @@ def call() {
 //            pollSCM('H/2 * * * *')
 //        }
         parameters {
-            choice(name: 'ENVIRONMENT', choices: ['', 'dev', 'prod'], description: 'Pick Environment')
-            choice(name: 'ACTION', choices: ['', 'apply', 'destroy'], description: 'Pick Terraform Action')
+            choice(name: 'ENVIRONMENT', choices: ['dev', 'prod'], description: 'Pick Environment')
+            choice(name: 'ACTION', choices: ['apply', 'destroy'], description: 'Pick Terraform Action')
         }
         stages
                 {
@@ -38,16 +38,6 @@ def call() {
                                             }
                                         }
                             }
-//                    stage ('Publish artifacts')
-//                            {
-//                                steps
-//                                        {
-//                                            script{
-//                                                common.prepare_artifacts()
-//                                                common.publish_artifacts(CREDS_USR, CREDS_PSW, "nexus-dev.chaitu.org", "nodejs")
-//                                            }
-//                                        }
-//                            }
                 }
         post {
             always {
