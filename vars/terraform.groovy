@@ -29,9 +29,9 @@ def call() {
                                 steps
                                         {
                                             git branch: 'terraform-ansible-nodejs', credentialsId: 'Chaitanya', url: 'https://github.com/ChaitanyaChandra/terraform.git'
-                                            dir('Terraform/ec2-spot') {
+                                            dir('Terraform/ec2-env') {
                                             }
-                                            sh "terraform init ---backend-config=./env/${ENV}.tfvars"
+                                            sh "terraform init ---backend-config=./env/${ENV}-backend.tfvars"
                                             sh "terraform ${ACTION} --auto-approve"
                                         }
                             }
