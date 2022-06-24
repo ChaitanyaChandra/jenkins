@@ -9,8 +9,8 @@ def call() {
 //            pollSCM('H/2 * * * *')
 //        }
         parameters {
-            choice(name: 'ENV', choices: ['dev', 'prod'], description: 'choose dev or pod')
-            choice(name: 'ACTION', choices: ['apply', 'destroy'], description: 'apply or destroy')
+            choice(name: 'ENVIRONMENT', choices: ['', 'dev', 'prod'], description: 'Pick Environment')
+            choice(name: 'ACTION', choices: ['', 'apply', 'destroy'], description: 'Pick Terraform Action')
         }
         stages
                 {
@@ -18,7 +18,7 @@ def call() {
                             {
                                 steps {
                                     script {
-                                        addShortText background: 'white', borderColor: 'white', color: 'red', link: '', text: "${ENV}"
+                                        addShortText background: 'white', borderColor: 'white', color: 'red', link: '', text: "${ENVIRONMENT}"
                                         addShortText background: 'white', borderColor: 'white', color: 'red', link: '', text: "${ACTION}"
                                     }
                                 }
@@ -31,8 +31,10 @@ def call() {
                                             git branch: 'terraform-ansible-nodejs', credentialsId: 'Chaitanya', url: 'https://github.com/ChaitanyaChandra/terraform.git'
                                             dir('Terraform/ec2-env') {
                                             }
-                                            sh "terraform init ---backend-config=./env/${ENV}-backend.tfvars"
-                                            sh "terraform ${ACTION} --auto-approve"
+                                            sh """
+                                                    terraform init -backend-config=env/${ENVIRONMENT}-backend.tfvars
+                                                    terraform ${ACTION} -auto-approve -var-file=env/${ENVIRONMENT}.tfvars
+                                               """
                                         }
                             }
                     stage ('terraform apply')
