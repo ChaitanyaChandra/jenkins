@@ -28,9 +28,7 @@ def call() {
                             {
                                 steps
                                         {
-                                            withCredentials([gitUsernamePassword(credentialsId: 'Chaitanya', gitToolName: 'git-tool')]) {
-                                                git branch: 'terraform-ansible-nodejs', url: 'https://github.com/ChaitanyaChandra/terraform.git'
-                                            }
+                                            git branch: 'terraform-ansible-nodejs', credentialsId: 'Chaitanya', url: 'https://github.com/ChaitanyaChandra/terraform.git'
                                             dir('Terraform/ec2-spot') {
                                             }
                                             sh "terraform init ---backend-config=./env/${ENV}.tfvars"
