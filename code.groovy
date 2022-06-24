@@ -48,3 +48,33 @@ pipelineJob('CI-Pipelines/nodejs') {
 
   }
 }
+
+folder('mutable') {
+  displayName('mutable')
+  description('mutable')
+}
+
+pipelineJob('mutable/terraform') {
+  configure { flowdefinition ->
+    flowdefinition << delegate.'definition'(class:'org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition',plugin:'workflow-cps') {
+      'scm'(class:'hudson.plugins.git.GitSCM',plugin:'git') {
+        'userRemoteConfigs' {
+          'hudson.plugins.git.UserRemoteConfig' {
+            'url'('https://github.com/ChaitanyaChandra/terraform.git',)
+          }
+        }
+        'branches' {
+          'hudson.plugins.git.BranchSpec' {
+            'name'('*/tags/*')
+          }
+          'hudson.plugins.git.BranchSpec' {
+            'name'('*/terraform-ansible-nodejs')
+          }
+        }
+      }
+      'scriptPath'('Jenkinsfile')
+      'lightweight'(true)
+    }
+
+  }
+}
