@@ -9,7 +9,7 @@ def call() {
             upstream(upstreamProjects: "terraform", threshold: hudson.model.Result.SUCCESS)
         }
         parameters {
-            choice(name: 'ACTION', choices: ['apply', 'destroy'], description: 'Pick Terraform Action')
+            choice(name: 'ACTION', choices: ['apply', 'destroy'], description: 'Pick Terraform Action', defaultValue: 'apply')
         }
         stages
                 {
