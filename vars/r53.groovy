@@ -5,12 +5,10 @@ def call() {
             disableConcurrentBuilds()
             ansiColor('xterm')
         }
-//        triggers {
-////            pollSCM('H/2 * * * *')
-//            upstream(upstreamProjects: "upstream-project-name", threshold: hudson.model.Result.SUCCESS)
-//        }
+        triggers {
+            upstream(upstreamProjects: "terraform", threshold: hudson.model.Result.SUCCESS)
+        }
         parameters {
-            choice(name: 'ENVIRONMENT', choices: ['dev', 'prod'], description: 'Pick Environment')
             choice(name: 'ACTION', choices: ['apply', 'destroy'], description: 'Pick Terraform Action')
         }
         stages
@@ -19,7 +17,6 @@ def call() {
                             {
                                 steps {
                                     script {
-                                        addShortText background: 'white', borderColor: 'white', color: 'red', link: '', text: "${ENVIRONMENT}"
                                         addShortText background: 'white', borderColor: 'white', color: 'red', link: '', text: "${ACTION}"
                                     }
                                 }
@@ -30,10 +27,10 @@ def call() {
                                 steps
                                         {
                                             git branch: 'terraform-ansible-nodejs', credentialsId: 'Chaitanya', url: 'https://github.com/ChaitanyaChandra/terraform.git'
-                                            dir('ec2-env') {
+                                            dir('route53') {
                                                 sh """
-                                                    terraform init -backend-config=env/${ENVIRONMENT}-backend.tfvars
-                                                    terraform ${ACTION} -auto-approve -var-file=env/${ENVIRONMENT}.tfvars
+                                                    terraform init
+                                                    terraform ${ACTION} -auto-approve
                                                """
                                             }
                                         }
