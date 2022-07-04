@@ -1,48 +1,47 @@
 def call() {
     pipeline {
-        agent { label 'work_station'}
+        agent {
+            label "${BUILD_LABEL}"
+        }
+
+        //environment {}
+
         options {
-            disableConcurrentBuilds()
             ansiColor('xterm')
         }
-//        triggers {
-////            pollSCM('H/2 * * * *')
-//            upstream(upstreamProjects: "upstream-project-name", threshold: hudson.model.Result.SUCCESS)
-//        }
-        parameters {
-            choice(name: 'ENVIRONMENT', choices: ['dev', 'prod'], description: 'Pick Environment')
-            choice(name: 'ACTION', choices: ['apply', 'destroy'], description: 'Pick Terraform Action')
-        }
-        stages
-                {
-                    stage('Label Builds')
-                            {
-                                steps {
-                                    script {
-                                        addShortText background: 'white', borderColor: 'white', color: 'red', link: '', text: "${ENVIRONMENT}"
-                                        addShortText background: 'white', borderColor: 'white', color: 'red', link: '', text: "${ACTION}"
-                                    }
-                                }
-                            }
 
-                    stage ('terraform apply')
-                            {
-                                steps
-                                        {
-                                            git branch: 'terraform-ansible-nodejs', credentialsId: 'Chaitanya', url: 'https://github.com/ChaitanyaChandra/terraform.git'
-                                            dir('ec2-env') {
-                                                sh """
-                                                    terraform init -backend-config=env/${ENVIRONMENT}-backend.tfvars
-                                                    terraform ${ACTION} -auto-approve -var-file=env/${ENVIRONMENT}.tfvars
-                                               """
-                                            }
-                                        }
-                            }
+        parameters {
+            choice(name: 'ENVIRONMENT', choices: ['', 'dev', 'prod'], description: 'Pick Environment')
+            choice(name: 'ACTION', choices: ['', 'apply', 'destroy'], description: 'Pick Terraform Action')
+        }
+
+        stages {
+
+            stage('Label Builds') {
+                steps {
+                    script {
+                        addShortText background: 'white', borderColor: 'white', color: 'red', link: '', text: "${ENVIRONMENT}"
+                        addShortText background: 'white', borderColor: 'white', color: 'red', link: '', text: "${ACTION}"
+                    }
                 }
+            }
+
+            stage('Apply Terraform Action') {
+                steps {
+                    sh '''
+            terraform init -backend-config=env/${ENVIRONMENT}-backend.tfvars
+            terraform ${ACTION} -auto-approve -var-file=env/${ENVIRONMENT}.tfvars
+          '''
+                }
+            }
+
+        }
+
         post {
             always {
                 cleanWs()
             }
         }
+
     }
 }
