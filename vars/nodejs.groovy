@@ -60,7 +60,7 @@ def call() {
                                         {
                                             script{
                                                 common.prepare_artifacts()
-                                                common.publish_artifacts(CREDS_USR, CREDS_PSW, "nexus-dev.chaitu.org", "nodejs")
+                                                common.publish_artifacts(CREDS_USR, CREDS_PSW, "nexus-dev.chaitu.org", "nodejs", "spec")
                                             }
                                         }
                             }
