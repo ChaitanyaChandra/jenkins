@@ -59,14 +59,14 @@ pipeline {
 
         stage('BACKEND') {
           steps {
-            dir('nodejs') {
+            dir('spec') {
               git branch: 'feature', url: "https://github.com/chaitanyachandra/spec.git"
-              sh '''
-                export TF_VAR_APP_VERSION=1.0.5
+              sh """
+                export TF_VAR_APP_VERSION=main
                 cd terraform-immutable
                 terraform init -backend-config=env/${ENV}-backend.tfvars
                 terraform apply -auto-approve -var-file=env/${ENV}.tfvars
-              '''
+              """
             }
           }
         }
