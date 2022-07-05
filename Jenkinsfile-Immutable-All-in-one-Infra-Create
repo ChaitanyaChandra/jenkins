@@ -15,7 +15,7 @@ pipeline {
 
     stage('VPC') {
       steps {
-        dir('vpc') {
+        dir('terraform-vpc') {
           git branch: 'main', url: "https://github.com/ChaitanyaChandra/terraform-vpc.git"
           sh '''
             terraform init -backend-config=env/${ENV}-backend.tfvars
@@ -25,12 +25,12 @@ pipeline {
       }
     }
 
-    stage('ALB-n-DB') {
+    stage('ELB-n-DB') {
       parallel {
 
         stage('DB') {
           steps {
-            dir('db') {
+            dir('DB') {
               git branch: 'main', url: "https://github.com/ChaitanyaChandra/terraform-db.git"
               sh '''
                 terraform init -backend-config=env/${ENV}-backend.tfvars
@@ -40,9 +40,9 @@ pipeline {
           }
         }
 
-        stage('ALB') {
+        stage('ELB') {
           steps {
-            dir('alb') {
+            dir('ELB') {
               git branch: 'main', url: "https://github.com/ChaitanyaChandra/elb.git"
               sh '''
                 terraform init -backend-config=env/${ENV}-backend.tfvars
@@ -51,6 +51,28 @@ pipeline {
             }
           }
         }
+      }
+    }
+
+    stage('frontend-n-backend setup') {
+      parallel {
+
+        stage('BACKEND') {
+          steps {
+            dir('BACKEND') {
+              git branch: 'feature', url: "https://github.com/chaitanya/spec.git"
+              sh '''
+                export TF_VAR_APP_VERSION=1.0.5
+                cd terraform-immutable
+                terraform init -backend-config=env/${ENV}-backend.tfvars
+                terraform apply -auto-approve -var-file=env/${ENV}.tfvars
+              '''
+            }
+          }
+        }
+
+
+
       }
     }
 

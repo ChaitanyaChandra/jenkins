@@ -11,6 +11,16 @@ def prepare_artifacts(){
     '''
 }
 
+def makeAMI() {
+    sh '''
+    terraform init 
+    terraform plan -var APP_VERSION=${gitTag}
+    terraform apply -auto-approve -var APP_VERSION=${gitTag}
+    terraform state rm module.${COMPONENT}-ami.aws_ami_from_instance.ami
+    terraform destroy -auto-approve -var APP_VERSION=${gitTag}
+  '''
+}
+
 def publish_artifacts(USER, PASSWORD, URL, PROJECT){
     sh "curl -v -u ${USER}:${PASSWORD} --upload-file ${PROJECT}-${gitTag}.zip http://${URL}:8081/repository/${PROJECT}/${PROJECT}-${gitTag}.zip"
 }

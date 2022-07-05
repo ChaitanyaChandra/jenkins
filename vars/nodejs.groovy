@@ -65,6 +65,16 @@ def call() {
                                             }
                                         }
                             }
+                    stage('Publish AMI') {
+                        when {
+                            expression { sh([returnStdout: true, script: 'echo ${GIT_BRANCH} | grep tags || true' ]) }
+                        }
+                        steps {
+                            script {
+                                common.makeAMI()
+                            }
+                        }
+                    }
                 }
         post {
             always {
