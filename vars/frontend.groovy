@@ -28,7 +28,7 @@ def call() {
                                 steps
                                         {
                                             sh 'echo compile code'
-                                            git branch: 'feature', url: 'https://github.com/ChaitanyaChandra/frontend.git'
+                                            git branch: 'main', url: 'https://github.com/ChaitanyaChandra/frontend.git'
                                             dir('frontend') {
                                             }
                                         }
