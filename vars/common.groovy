@@ -11,13 +11,13 @@ def prepare_artifacts(){
     '''
 }
 
-def makeAMI() {
+def makeAMI(USER, PASSWORD) {
     sh '''
     terraform init 
-    terraform plan -var APP_VERSION=${gitTag}
-    terraform apply -auto-approve -var APP_VERSION=${gitTag}
+    terraform plan -var APP_VERSION=${gitTag} -var PROJECT=nodejs -var ENV=dev -var NEXUS_USERNAME=${USER} -var NEXUS_PASSWORD=${PASSWORD}
+    terraform apply -auto-approve -var APP_VERSION=${gitTag} -var PROJECT=nodejs -var ENV=dev -var NEXUS_USERNAME=${USER} -var NEXUS_PASSWORD=${PASSWORD}
     terraform state rm module.${COMPONENT}-ami.aws_ami_from_instance.ami
-    terraform destroy -auto-approve -var APP_VERSION=${gitTag}
+    terraform destroy -auto-approve -var APP_VERSION=${gitTag} -var PROJECT=nodejs -var ENV=dev -var NEXUS_USERNAME=${USER} -var NEXUS_PASSWORD=${PASSWORD}
   '''
 }
 
