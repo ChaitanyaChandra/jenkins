@@ -7,7 +7,7 @@ pipeline {
     }
     // triggers { pollSCM('* * * * *') }
     environment {
-        SSH = credentials('INSTANCE')
+        SSH = credentials('INSTANCE_CREDS')
     }
     stages
     {

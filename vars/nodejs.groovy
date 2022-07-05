@@ -6,7 +6,7 @@ def call() {
             ansiColor('xterm')
         }
         environment {
-            CREDS = credentials('INSTANCE_CREDS')
+            CREDS = credentials('APP_CREDS')
         }
 //        triggers {
 //            pollSCM('H/2 * * * *')
@@ -79,13 +79,6 @@ def call() {
         post {
             always {
                 cleanWs()
-            }
-            success {
-                script{
-                    if (gitTag != "feature"){
-                        build job: 'ansible', parameters: [string(name: 'VERSION', value: "${gitTag}")]
-                    }
-                }
             }
         }
     }
