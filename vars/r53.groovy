@@ -26,7 +26,7 @@ def call() {
                             {
                                 steps
                                         {
-                                            git branch: 'terraform-ansible-nodejs', credentialsId: 'Chaitanya', url: 'https://github.com/ChaitanyaChandra/terraform.git'
+                                            git branch: 'main', credentialsId: 'Chaitanya', url: 'https://github.com/ChaitanyaChandra/terraform.git'
                                             dir('route53') {
                                                 sh """
                                                     terraform init
