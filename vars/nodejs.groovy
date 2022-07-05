@@ -70,7 +70,7 @@ def call() {
                         }
                         steps {
                             script {
-                                common.makeAMI(CREDS_USR, CREDS_PSW, "nodejs")
+                                common.make_AMI(CREDS_USR, CREDS_PSW, "nodejs")
                             }
                         }
                     }
