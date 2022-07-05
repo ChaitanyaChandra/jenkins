@@ -15,7 +15,7 @@ pipeline {
 
     stage('VPC') {
       steps {
-        dir('terraform-vpc') {
+        dir('vpc') {
           git branch: 'main', url: "https://github.com/ChaitanyaChandra/terraform-vpc.git"
           sh '''
             terraform init -backend-config=env/${ENV}-backend.tfvars
