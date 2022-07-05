@@ -58,7 +58,6 @@ def call() {
                                 }
                                 steps
                                         {
-                                            sh 'env'
                                             script{
                                                 common.prepare_artifacts()
                                                 common.publish_artifacts(CREDS_USR, CREDS_PSW, "nexus-dev.chaitu.org", "nodejs")
