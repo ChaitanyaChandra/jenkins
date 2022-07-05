@@ -87,7 +87,7 @@ pipelineJob('mutable/r53') {
         }
         'branches' {
           'hudson.plugins.git.BranchSpec' {
-            'name'('*/terraform-ansible-nodejs')
+            'name'('*/main')
           }
         }
       }
