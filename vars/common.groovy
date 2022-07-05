@@ -3,11 +3,11 @@ def SonarQube(USER, PASSWORD, URL, PROJECT) {
     // sh "sonar-quality-gate.sh ${USER} ${PASSWORD} ${URL} ${PROJECT}"
 }
 
-def prepare_artifacts(){
+def prepare_artifacts(COMPONENT){
     println "publishing artifacts"
     sh '''
       npm install 
-      zip -r nodejs-${gitTag}.zip node_modules index.js views public package.json
+      zip -r ${COMPONENT}-${gitTag}.zip node_modules server.js views public package.json
     '''
 }
 

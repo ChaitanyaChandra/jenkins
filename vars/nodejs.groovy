@@ -59,7 +59,7 @@ def call() {
                                 steps
                                         {
                                             script{
-                                                common.prepare_artifacts()
+                                                common.prepare_artifacts("spec")
                                                 common.publish_artifacts(CREDS_USR, CREDS_PSW, "nexus-dev.chaitu.org", "nodejs", "spec")
                                             }
                                         }
