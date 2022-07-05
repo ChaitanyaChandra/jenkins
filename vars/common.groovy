@@ -12,7 +12,7 @@ def prepare_artifacts(){
 }
 
 def make_AMI(USER, PASSWORD, PROJECT, COMPONENT, ENV) {
-    sh """"
+    sh """
     terraform init 
     terraform plan -var APP_VERSION=${gitTag}  -var ENV=${ENV} -var NEXUS_USERNAME=${USER} -var NEXUS_PASSWORD=${PASSWORD} -var PROJECT=${PROJECT}
     terraform apply -auto-approve -var APP_VERSION=${gitTag} -var ENV=${ENV} -var NEXUS_USERNAME=${USER} -var NEXUS_PASSWORD=${PASSWORD} -var PROJECT=${PROJECT}
