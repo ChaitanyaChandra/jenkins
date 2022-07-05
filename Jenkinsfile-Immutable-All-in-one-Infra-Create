@@ -71,6 +71,19 @@ pipeline {
           }
         }
 
+        stage('FRONTEND') {
+          steps {
+            dir('nginx') {
+              git branch: 'main', url: "https://github.com/chaitanyachandra/frontend.git"
+              sh """
+                export TF_VAR_APP_VERSION=main
+                cd terraform-immutable
+                terraform init -backend-config=env/${ENV}-backend.tfvars
+                terraform apply -auto-approve -var-file=env/${ENV}.tfvars
+              """
+            }
+          }
+        }
 
 
       }
