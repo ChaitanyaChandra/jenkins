@@ -5,10 +5,10 @@ def SonarQube(USER, PASSWORD, URL, PROJECT) {
 
 def prepare_artifacts(COMPONENT){
     println "publishing artifacts"
-    sh '''
+    sh """
       npm install 
       zip -r ${COMPONENT}-${gitTag}.zip node_modules server.js views public package.json
-    '''
+    """
 }
 
 def make_AMI(USER, PASSWORD, PROJECT, COMPONENT, ENV) {
