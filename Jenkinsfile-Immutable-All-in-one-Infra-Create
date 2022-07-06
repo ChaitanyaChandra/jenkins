@@ -55,38 +55,31 @@ pipeline {
       }
     }
 
-    stage('frontend-n-backend setup') {
-      parallel {
-
-        stage('BACKEND') {
-          steps {
-            dir('spec') {
-              git branch: 'feature', url: "https://github.com/chaitanyachandra/spec.git"
-              sh """
-                export TF_VAR_APP_VERSION=${APP_VERSION}
-                cd terraform-immutable
-                terraform init -backend-config=env/${ENV}-backend.tfvars
-                terraform apply -auto-approve -var-file=env/${ENV}.tfvars
-              """
-            }
-          }
+    stage('BACKEND') {
+      steps {
+        dir('spec') {
+          git branch: 'feature', url: "https://github.com/chaitanyachandra/spec.git"
+          sh """
+            export TF_VAR_APP_VERSION=${APP_VERSION}
+            cd terraform-immutable
+            terraform init -backend-config=env/${ENV}-backend.tfvars
+            terraform apply -auto-approve -var-file=env/${ENV}.tfvars
+          """
         }
+      }
+    }
 
-        stage('FRONTEND') {
-          steps {
-            dir('nginx') {
-              git branch: 'main', url: "https://github.com/chaitanyachandra/frontend.git"
-              sh """
-                export TF_VAR_APP_VERSION=${APP_VERSION}
-                cd terraform-immutable
-                terraform init -backend-config=env/${ENV}-backend.tfvars
-                terraform apply -auto-approve -var-file=env/${ENV}.tfvars
-              """
-            }
-          }
+    stage('FRONTEND') {
+      steps {
+        dir('nginx') {
+          git branch: 'main', url: "https://github.com/chaitanyachandra/frontend.git"
+          sh """
+            export TF_VAR_APP_VERSION=${APP_VERSION}
+            cd terraform-immutable
+            terraform init -backend-config=env/${ENV}-backend.tfvars
+            terraform apply -auto-approve -var-file=env/${ENV}.tfvars
+          """
         }
-
-
       }
     }
 
