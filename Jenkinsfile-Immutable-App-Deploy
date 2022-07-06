@@ -1,6 +1,6 @@
 pipeline {
   agent {
-    label 'WORKSTATION'
+    label 'work_station'
   }
 
   options {
@@ -11,7 +11,6 @@ pipeline {
     choice(name: 'ENVIRONMENT', choices: ['', 'dev', 'prod'], description: 'Pick Environment')
     string(name: 'COMPONENT', defaultValue: '', description: 'Which Component?')
     string(name: 'APP_VERSION', defaultValue: '', description: 'Application Version to Deploy?')
-    booleanParam(name: 'INSTANCE_REFRESH', defaultValue: true, description: 'Instance Refresh Needed?')
   }
 
   stages {
@@ -19,7 +18,7 @@ pipeline {
     stage('Get Git Repo') {
       steps {
         dir('code') {
-          git branch: 'main', url: "https://github.com/raghudevopsb61/${COMPONENT}.git"
+          git branch: 'feature', url: "https://github.com/ChaitanyaChandra/spec.git"
         }
       }
     }
