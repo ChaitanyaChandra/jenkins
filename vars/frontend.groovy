@@ -8,9 +8,6 @@ def call() {
         environment {
             CREDS = credentials('APP_CREDS')
         }
-        parameters {
-            choice(name: 'version', choices: [], description: 'Pick Environment')
-        }
 //        triggers {
 //            pollSCM('H/2 * * * *')
 //        }
