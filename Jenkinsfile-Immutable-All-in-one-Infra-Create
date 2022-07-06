@@ -8,7 +8,7 @@ pipeline {
   }
 
   parameters {
-    choice(name: 'ENV', choices: [ 'dev', 'prod'], description: 'Pick Environment')
+    string(name: 'APP_VERSION', defaultValue: '', description: 'Application Version to Deploy?')
   }
 
   stages {
@@ -62,7 +62,7 @@ pipeline {
             dir('spec') {
               git branch: 'feature', url: "https://github.com/chaitanyachandra/spec.git"
               sh """
-                export TF_VAR_APP_VERSION=main
+                export TF_VAR_APP_VERSION=${APP_VERSION}
                 cd terraform-immutable
                 terraform init -backend-config=env/${ENV}-backend.tfvars
                 terraform apply -auto-approve -var-file=env/${ENV}.tfvars
@@ -76,7 +76,7 @@ pipeline {
             dir('nginx') {
               git branch: 'main', url: "https://github.com/chaitanyachandra/frontend.git"
               sh """
-                export TF_VAR_APP_VERSION=main
+                export TF_VAR_APP_VERSION=${APP_VERSION}
                 cd terraform-immutable
                 terraform init -backend-config=env/${ENV}-backend.tfvars
                 terraform apply -auto-approve -var-file=env/${ENV}.tfvars
