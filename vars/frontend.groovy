@@ -1,14 +1,3 @@
-def prepare_artifacts(COMPONENT){
-    println "publishing artifacts"
-    sh """
-      zip -r ${COMPONENT}-${gitTag}.zip .
-    """
-}
-
-def publish_artifacts(USER, PASSWORD, URL, PROJECT, COMPONENT){
-    sh "curl -v -u ${USER}:${PASSWORD} --upload-file ${COMPONENT}-${gitTag}.zip http://${URL}:8081/repository/${PROJECT}/${COMPONENT}-${gitTag}.zip"
-}
-
 def call() {
     pipeline {
         agent { label 'work_station'}
@@ -53,8 +42,8 @@ def call() {
                                 steps
                                         {
                                             script{
-                                                prepare_artifacts("frontend")
-                                                publish_artifacts(CREDS_USR, CREDS_PSW, "nexus-dev.chaitu.org", "nginx", "frontend")
+                                                common.prepare_artifacts("frontend")
+                                                common.publish_artifacts(CREDS_USR, CREDS_PSW, "nexus-dev.chaitu.org", "nginx", "frontend")
                                             }
                                         }
                             }

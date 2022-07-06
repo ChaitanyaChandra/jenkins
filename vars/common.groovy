@@ -7,7 +7,7 @@ def prepare_artifacts(COMPONENT){
     println "publishing artifacts"
     sh """
       npm install 
-      zip -r ${COMPONENT}-${gitTag}.zip node_modules server.js views public package.json
+      zip -r ${COMPONENT}-${gitTag}.zip .
     """
 }
 
