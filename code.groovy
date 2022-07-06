@@ -157,7 +157,7 @@ pipelineJob('Immutable/app-deploy') {
       'scm'(class:'hudson.plugins.git.GitSCM',plugin:'git') {
         'userRemoteConfigs' {
           'hudson.plugins.git.UserRemoteConfig' {
-            'url'('https://github.com/chaitanya/jenkins.git')
+            'url'('https://github.com/chaitanyachandra/jenkins.git')
           }
         }
         'branches' {
