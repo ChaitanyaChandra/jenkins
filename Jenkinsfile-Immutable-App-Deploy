@@ -9,7 +9,7 @@ pipeline {
 
   parameters {
     choice(name: 'ENVIRONMENT', choices: ['', 'dev', 'prod'], description: 'Pick Environment')
-    choice(name: 'COMPONENT', choices: ['spec', 'frontend'], description: 'Pick Component?'')
+    choice(name: 'COMPONENT', choices: ['spec', 'frontend'], description: 'Pick Component?')
     string(name: 'APP_VERSION', defaultValue: '', description: 'Application Version to Deploy?')
   }
 
@@ -18,7 +18,7 @@ pipeline {
     stage('Get Git Repo') {
       steps {
         dir('code') {
-          git branch: 'feature', url: "https://github.com/ChaitanyaChandra/${COMPONENT}.git"
+          git branch: 'main', url: "https://github.com/ChaitanyaChandra/${COMPONENT}.git"
         }
       }
     }

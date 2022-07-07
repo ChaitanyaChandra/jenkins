@@ -58,7 +58,7 @@ pipeline {
     stage('BACKEND') {
       steps {
         dir('spec') {
-          git branch: 'feature', url: "https://github.com/chaitanyachandra/spec.git"
+          git branch: 'main', url: "https://github.com/chaitanyachandra/spec.git"
           sh """
             export TF_VAR_APP_VERSION=${APP_VERSION}
             cd terraform-immutable
