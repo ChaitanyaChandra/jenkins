@@ -11,6 +11,7 @@ pipeline {
     choice(name: 'ENVIRONMENT', choices: ['', 'dev', 'prod'], description: 'Pick Environment')
     choice(name: 'COMPONENT', choices: ['spec', 'frontend'], description: 'Pick Component?')
     string(name: 'APP_VERSION', defaultValue: '', description: 'Application Version to Deploy?')
+    booleanParam(name: 'INSTANCE_REFRESH', defaultValue: false, description: 'Instance Refresh Needed?')
   }
 
   stages {
