@@ -1,6 +1,6 @@
 pipeline {
   agent {
-    label 'WORKSTATION'
+    label 'work_station'
   }
 
   options {
@@ -15,115 +15,39 @@ pipeline {
 
     stage('FRONTEND') {
       steps {
-        dir('frontend') {
-          git branch: 'main', url: "https://github.com/raghudevopsb61/frontend.git"
-          sh '''
-                export TF_VAR_APP_VERSION=1.0.4
-                cd terraform-immutable
-                terraform init -backend-config=env/${ENV}-backend.tfvars
-                terraform destroy -auto-approve -var-file=env/${ENV}.tfvars
-              '''
+        dir('nginx') {
+          git branch: 'main', url: "https://github.com/chaitanyachandra/frontend.git"
+          sh """
+            export TF_VAR_APP_VERSION=${APP_VERSION}
+            cd terraform-immutable
+            terraform init -backend-config=env/${ENV}-backend.tfvars
+            terraform destroy -auto-approve -var-file=env/${ENV}.tfvars
+          """
         }
       }
     }
 
     stage('BACKEND') {
-      parallel {
-
-        stage('CART') {
-          steps {
-            dir('cart') {
-              git branch: 'main', url: "https://github.com/raghudevopsb61/cart.git"
-              sh '''
-                export TF_VAR_APP_VERSION=1.0.2
-                cd terraform-immutable
-                terraform init -backend-config=env/${ENV}-backend.tfvars
-                terraform destroy -auto-approve -var-file=env/${ENV}.tfvars
-              '''
-            }
-          }
+      steps {
+        dir('spec') {
+          git branch: 'main', url: "https://github.com/chaitanyachandra/spec.git"
+          sh """
+            export TF_VAR_APP_VERSION=${APP_VERSION}
+            cd terraform-immutable
+            terraform init -backend-config=env/${ENV}-backend.tfvars
+            terraform destroy -auto-approve -var-file=env/${ENV}.tfvars
+          """
         }
-
-        stage('CATALOGUE') {
-          steps {
-            dir('catalogue') {
-              git branch: 'main', url: "https://github.com/raghudevopsb61/catalogue.git"
-              sh '''
-                export TF_VAR_APP_VERSION=1.0.5
-                cd terraform-immutable
-                terraform init -backend-config=env/${ENV}-backend.tfvars
-                terraform destroy -auto-approve -var-file=env/${ENV}.tfvars
-              '''
-            }
-          }
-        }
-
-        stage('USER') {
-          steps {
-            dir('user') {
-              git branch: 'main', url: "https://github.com/raghudevopsb61/user.git"
-              sh '''
-                export TF_VAR_APP_VERSION=1.0.2
-                cd terraform-immutable
-                terraform init -backend-config=env/${ENV}-backend.tfvars
-                terraform destroy -auto-approve -var-file=env/${ENV}.tfvars
-              '''
-            }
-          }
-        }
-
-        stage('SHIPPING') {
-          steps {
-            dir('shipping') {
-              git branch: 'main', url: "https://github.com/raghudevopsb61/shipping.git"
-              sh '''
-                export TF_VAR_APP_VERSION=1.0.4
-                cd terraform-immutable
-                terraform init -backend-config=env/${ENV}-backend.tfvars
-                terraform destroy -auto-approve -var-file=env/${ENV}.tfvars
-              '''
-            }
-          }
-        }
-
-        stage('PAYMENT') {
-          steps {
-            dir('payment') {
-              git branch: 'main', url: "https://github.com/raghudevopsb61/payment.git"
-              sh '''
-                export TF_VAR_APP_VERSION=1.0.2
-                cd terraform-immutable
-                terraform init -backend-config=env/${ENV}-backend.tfvars
-                terraform destroy -auto-approve -var-file=env/${ENV}.tfvars
-              '''
-            }
-          }
-        }
-
-        stage('DISPATCH') {
-          steps {
-            dir('dispatch') {
-              git branch: 'main', url: "https://github.com/raghudevopsb61/dispatch.git"
-              sh '''
-                export TF_VAR_APP_VERSION=1.0.2
-                cd terraform-immutable
-                terraform init -backend-config=env/${ENV}-backend.tfvars
-                terraform destroy -auto-approve -var-file=env/${ENV}.tfvars
-              '''
-            }
-          }
-        }
-
       }
     }
-    
-    stage('ALB-n-DB') {
+
+    stage('ELB-n-DB') {
       parallel {
 
         stage('DB') {
           steps {
-            dir('db') {
-              git branch: 'main', url: "https://github.com/raghudevopsb61/terraform-db.git"
+            dir('DB') {
+              git branch: 'main', url: "https://github.com/ChaitanyaChandra/terraform-db.git"
               sh '''
                 terraform init -backend-config=env/${ENV}-backend.tfvars
                 terraform destroy -auto-approve -var-file=env/${ENV}.tfvars
@@ -132,10 +56,10 @@ pipeline {
           }
         }
 
-        stage('ALB') {
+        stage('ELB') {
           steps {
-            dir('alb') {
-              git branch: 'main', url: "https://github.com/raghudevopsb61/terraform-immutable-alb.git"
+            dir('ELB') {
+              git branch: 'main', url: "https://github.com/ChaitanyaChandra/elb.git"
               sh '''
                 terraform init -backend-config=env/${ENV}-backend.tfvars
                 terraform destroy -auto-approve -var-file=env/${ENV}.tfvars
@@ -143,17 +67,13 @@ pipeline {
             }
           }
         }
-
-
       }
     }
-
-
 
     stage('VPC') {
       steps {
         dir('vpc') {
-          git branch: 'main', url: "https://github.com/raghudevopsb61/terraform-vpc.git"
+          git branch: 'main', url: "https://github.com/ChaitanyaChandra/terraform-vpc.git"
           sh '''
             terraform init -backend-config=env/${ENV}-backend.tfvars
             terraform destroy -auto-approve -var-file=env/${ENV}.tfvars -target=aws_nat_gateway.ngw
@@ -162,8 +82,6 @@ pipeline {
         }
       }
     }
-
-
   }
 
   post {
