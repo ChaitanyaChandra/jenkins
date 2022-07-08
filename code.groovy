@@ -151,7 +151,7 @@ pipelineJob('Immutable/All-Infra-Create') {
   }
 }
 
-pipelineJob('Immutable/All-Infra-Create') {
+pipelineJob('Immutable/All-Infra-destroy') {
   configure { flowdefinition ->
     flowdefinition << delegate.'definition'(class:'org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition',plugin:'workflow-cps') {
       'scm'(class:'hudson.plugins.git.GitSCM',plugin:'git') {
