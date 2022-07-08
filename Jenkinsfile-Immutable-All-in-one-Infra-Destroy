@@ -9,6 +9,8 @@ pipeline {
 
   parameters {
     choice(name: 'ENV', choices: ['', 'dev', 'prod'], description: 'Pick Environment')
+    string(name: 'APP_VERSION', defaultValue: '', description: 'Application Version to Deploy?')
+
   }
 
   stages {
